@@ -32,10 +32,21 @@ export const UserModal: React.FC<Props> = ({
   };
 
   const handleSave = async () => {
-    const values = await submit();
-    onClose();
-    form.resetFields();
-    saveMutation.mutate(values);
+    try {
+      const values = await submit();
+      if (user) {
+        const isSame =
+          values.name === user.name && values.avatar === user.avatar;
+
+        if (isSame) {
+          onClose();
+          return;
+        }
+      }
+      onClose();
+      form.resetFields();
+      saveMutation.mutate(values);
+    } catch (err) {}
   };
 
   const handleDelete = () => {
@@ -50,6 +61,7 @@ export const UserModal: React.FC<Props> = ({
       onCancel={handleClose}
       footer={
         <ModalFooter
+          disabled={user?.isAdmin}
           isEdit={!!user}
           loadingSave={saveMutation.isPending}
           loadingDelete={deleteMutation.isPending}
@@ -59,7 +71,7 @@ export const UserModal: React.FC<Props> = ({
         />
       }
     >
-      <UserForm isEdit={Boolean(user)} form={form} />
+      <UserForm disabled={user?.isAdmin} isEdit={Boolean(user)} form={form} />
     </Modal>
   );
 };

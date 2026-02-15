@@ -53,6 +53,7 @@ export const useSaveUser = (user?: IUser | null, onSuccess?: () => void) => {
         name: variables.name,
         avatar: variables.avatar,
         createdAt: dayjs().toISOString(),
+        isAdmin: false,
       };
 
       queryClient.setQueryData<IUser[]>(userQueryKeys.all, [

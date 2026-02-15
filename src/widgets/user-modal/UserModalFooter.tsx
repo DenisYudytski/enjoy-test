@@ -3,6 +3,7 @@ import { Button, Popconfirm } from "antd";
 
 interface Props {
   isEdit: boolean;
+  disabled: boolean | undefined;
   loadingSave: boolean;
   loadingDelete: boolean;
   onSave: () => void;
@@ -12,6 +13,7 @@ interface Props {
 
 export const ModalFooter: React.FC<Props> = ({
   isEdit,
+  disabled,
   loadingSave,
   loadingDelete,
   onSave,
@@ -33,7 +35,7 @@ export const ModalFooter: React.FC<Props> = ({
           cancelText='Отмена'
           onConfirm={onDelete}
         >
-          <Button type='primary' loading={loadingDelete}>
+          <Button disabled={disabled} type='primary' loading={loadingDelete}>
             Удалить
           </Button>
         </Popconfirm>

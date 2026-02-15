@@ -5,9 +5,10 @@ import { FC } from "react";
 interface Props {
   form: any;
   isEdit: boolean;
+  disabled: boolean | undefined;
 }
 
-export const UserForm: FC<Props> = ({ form, isEdit }) => {
+export const UserForm: FC<Props> = ({ form, isEdit, disabled }) => {
   return (
     <Form form={form} layout='vertical'>
       {isEdit && (
@@ -16,11 +17,15 @@ export const UserForm: FC<Props> = ({ form, isEdit }) => {
         </Form.Item>
       )}
 
-      <Form.Item label='Имя' name='name'>
-        <Input />
+      <Form.Item
+        rules={[{ required: true, message: "Введите имя пользователя" }]}
+        label='Имя'
+        name='name'
+      >
+        <Input disabled={disabled} />
       </Form.Item>
 
-      <Form.Item label='Ссылка на аватарку' name='avatar'>
+      <Form.Item initialValue='' label='Ссылка на аватарку' name='avatar'>
         <Input />
       </Form.Item>
     </Form>

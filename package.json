@@ -10,8 +10,7 @@
     "dayjs": "1.11.19",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "react-router-dom": "6.30.3",
-    "styled-components": "6.3.9"
+    "react-router-dom": "6.30.3"
   },
   "devDependencies": {
     "@types/node": "^25.2.3",

@@ -39,6 +39,12 @@ export default {
     historyApiFallback: true,
     port: 3000,
     open: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
   },
   mode: "development",
 };

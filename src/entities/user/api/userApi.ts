@@ -7,7 +7,7 @@ export const userApi = {
     return data;
   },
 
-  createUser: async (payload: Omit<IUser, "id" | "createdAt">) => {
+  createUser: async (payload: Pick<IUser, "name" | "avatar">) => {
     const { data } = await api.post("/users", payload);
     return data;
   },
