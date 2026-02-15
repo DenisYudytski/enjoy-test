@@ -10,11 +10,11 @@
 - Webpack + npm  
 - React 16  
 - Ant Design 5  
-- styled-components  
+- styled-components (не использовался из-за маленького количества стилей) 
 - React Router 6  
 - TanStack Query 4  
 - axios  
-- dayjs  
+- dayjs
 - Feature-Sliced Design (FSD)  
 - Git (GitHub)
 
