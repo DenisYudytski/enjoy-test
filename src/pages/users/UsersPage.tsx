@@ -4,19 +4,25 @@ import { Button, Flex, Spin } from "antd";
 
 import { UsersList } from "@/widgets/users-list";
 import { UserModal } from "@/widgets/user-modal";
-import { IUser } from "@/entities/user/types";
-import { Header } from "@/shared/ui";
-import { userApi, userQueryKeys } from "@/entities/user/api";
+import { userApi, userQueryKeys, IUser } from "@/entities/user";
 
 export const UsersPage = () => {
   const { data = [], isLoading } = useQuery({
     queryKey: userQueryKeys.all,
     queryFn: userApi.getUsers,
+    staleTime: 1000 * 60,
+    refetchOnWindowFocus: false,
   });
 
   const [selected, setSelected] = useState<IUser | null>(null);
   const [modalShow, setModalShow] = useState(false);
-  const [modalMode, setModalMode] = useState(false);
+
+  const handleUserAction = (user?: IUser) => {
+    setModalShow(true);
+    if (user) {
+      setSelected(user);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -27,14 +33,13 @@ export const UsersPage = () => {
   }
 
   return (
-    <div>
-      {/* <Header /> */}
-      <UsersList users={data} onSelect={setSelected} />
+    <>
+      <UsersList users={data} handleUserAction={handleUserAction} />
 
       <Button
         type='primary'
-        style={{ marginTop: 16 }}
-        onClick={() => setModalShow(true)}
+        style={{ marginTop: 20 }}
+        onClick={() => handleUserAction()}
       >
         Создать пользователя
       </Button>
@@ -42,8 +47,9 @@ export const UsersPage = () => {
       <UserModal
         modalShow={modalShow}
         user={selected}
-        onClose={() => setSelected(null)}
+        onClose={() => setModalShow(false)}
+        clearSelected={() => setSelected(null)}
       />
-    </div>
+    </>
   );
 };

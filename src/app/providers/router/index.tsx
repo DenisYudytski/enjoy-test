@@ -1,25 +1,23 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage, NotFoundPage, UsersPage } from "@/pages";
-import { AppLayout } from "@/app/layouts/AppLayout";
+import { AuthorizedContainer } from "@/app/containers/AuthorizedContainer";
+import { UnauthorizedContainer } from "@/app/containers/UnauthorizedContainer";
 
-export const AppRouter = () => {
-  const isAuth = true;
+export const AppRouter = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<AuthorizedContainer />}>
+        <Route index element={<Navigate to='users' replace />} />
+        <Route path='users' element={<UsersPage />} />
+      </Route>
 
-  const handleLogout = () => {
-    console.log("logout");
-  };
+      <Route path='auth' element={<UnauthorizedContainer />}>
+        <Route index element={<Navigate to='login' replace />} />
+        <Route path='login' element={<LoginPage />} />
+      </Route>
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout isAuth={isAuth} onLogout={handleLogout} />}>
-          <Route path='/' element={<LoginPage />} />
-          <Route path='/users' element={<UsersPage />} />
-        </Route>
-
-        <Route path='*' element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+      <Route path='*' element={<NotFoundPage />} />
+    </Routes>
+  </BrowserRouter>
+);
