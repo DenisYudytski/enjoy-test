@@ -20,7 +20,6 @@ export const AuthorizedContainer: React.FC = () => {
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "center",
-          // background: "inherit",
         }}
       >
         <Button type='primary' onClick={logout}>
