@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "webpack serve --config webpack.config.ts",
-    "build": "webpack --config webpack.config.ts"
+    "start": "webpack serve --mode development --config webpack.config.ts",
+    "build": "webpack --mode production --config webpack.config.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "4.43.0",
